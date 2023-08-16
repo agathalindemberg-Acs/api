@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.hateoas.EntityModel;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class TravelRequestAPI {
     TravelRequestMapper mapper;
 
     @PostMapping
-    public EntityModel<TravelRequestOutput> makeTravelRequest (@RequestBody TravelRequestInput travelRequestInput) {
+    public EntityModel<TravelRequestOutput> makeTravelRequest (@RequestBody @Valid TravelRequestInput travelRequestInput) {
         TravelRequest request = travelService.saveTravelRequest(mapper.map(travelRequestInput));
         TravelRequestOutput output = mapper.map(request);
         return mapper.buildOutputModel(request, output);
